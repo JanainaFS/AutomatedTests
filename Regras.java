@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,11 @@ public class Regras {
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 	}
 	
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+	
 	@Test
 	public void validacaoNome() {
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
@@ -24,8 +30,6 @@ public class Regras {
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Nome eh obrigatorio", alert.getText());
 		alert.accept();
-		
-		driver.quit();
 	}
 	
 	@Test
@@ -37,8 +41,6 @@ public class Regras {
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
 		alert.accept();
-		
-		driver.quit();
 	}
 	
 	@Test
@@ -51,8 +53,6 @@ public class Regras {
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
 		alert.accept();
-		
-		driver.quit();
 	}
 	
 	@Test
@@ -68,9 +68,6 @@ public class Regras {
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
 		alert.accept();
-		
-		driver.quit();
-		
 	}
 	
 	@Test
@@ -88,9 +85,6 @@ public class Regras {
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
 		alert.accept();
-
-		driver.quit();
-	
 	}
 
 }
