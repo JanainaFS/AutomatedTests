@@ -1,18 +1,28 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class FormCadastro {
+	private WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		driver = new ChromeDriver();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
 	
 	@Test
 	public void cadastrarForm() {
-		WebDriver driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Janaina");
 		
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Feitosa");
@@ -39,8 +49,6 @@ public class FormCadastro {
 		Assert.assertEquals("superior", driver.findElement(By.id("descEscolaridade")).findElement(By.tagName("span")).getText());
 		Assert.assertEquals("Natacao", driver.findElement(By.id("descEsportes")).findElement(By.tagName("span")).getText());
 		Assert.assertEquals("Nenhuma sugestão.", driver.findElement(By.id("descSugestoes")).findElement(By.tagName("span")).getText());
-
-		driver.quit();
 	}
 	
 }
