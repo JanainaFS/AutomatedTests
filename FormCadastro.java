@@ -8,13 +8,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class FormCadastro {
 	private WebDriver driver;
-	private DSL dsl;
+	private CampoTreinamentoPage page;
 	
 	@Before
 	public void inicializa() {
 		driver = new ChromeDriver();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+		page = new CampoTreinamentoPage(driver);
 	}
 	
 	@After
@@ -24,14 +24,14 @@ public class FormCadastro {
 	
 	@Test
 	public void cadastrarForm() {
-		dsl.escreve("elementosForm:nome", "Janaina");
-		dsl.escreve("elementosForm:sobrenome", "Feitosa");
-		dsl.clicarRadio("elementosForm:sexo:1");
-		dsl.clicarRadio("elementosForm:comidaFavorita:1");
-		dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
-		dsl.selecionarCombo("elementosForm:esportes", "Natacao");
-		dsl.escreve("elementosForm:sugestoes", "Nenhuma sugestão.");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Janaina");
+		page.setSobrenome("Feitosa"); 
+		page.setSexoFeminino();
+		page.setComidaFrango();
+		page.setEscolaridade("Superior");
+		page.setEsporte("Natacao");
+		page.setSugestao("Nenhuma sugestão.");
+		page.cadastrar();
 		
 		//Refatorar depois
 		Assert.assertEquals("Cadastrado!", driver.findElement(By.id("resultado")).findElement(By.tagName("span")).getText());

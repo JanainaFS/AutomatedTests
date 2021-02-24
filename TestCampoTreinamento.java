@@ -33,6 +33,14 @@ public class TestCampoTreinamento {
 	}
 	
 	@Test
+	public void escreverNomeDuplo() {
+		dsl.escreve("elementosForm:nome", "Janaina");
+		Assert.assertEquals("Janaina", dsl.obterValorCampo("elementosForm:nome"));
+		dsl.escreve("elementosForm:nome", "Feitosa");
+		Assert.assertEquals("Feitosa", dsl.obterValorCampo("elementosForm:nome"));
+	}
+	
+	@Test
 	public void deveInteragirComTextArea() {
 		dsl.escreve("elementosForm:sugestoes", "teste");
 		Assert.assertEquals("teste", dsl.obterValorCampo("elementosForm:sugestoes"));
