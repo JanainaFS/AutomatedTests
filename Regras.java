@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -7,12 +8,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class Regras {
+	
+	private WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		driver = new ChromeDriver();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	
 	@Test
 	public void validacaoNome() {
-		
-		WebDriver driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		
 		Alert alert = driver.switchTo().alert();
@@ -24,9 +30,6 @@ public class Regras {
 	
 	@Test
 	public void validacaoSobrenome() {
-		WebDriver driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Janaina");
 		
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
@@ -40,9 +43,6 @@ public class Regras {
 	
 	@Test
 	public void validacaoSexo() {
-		WebDriver driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Janaina");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Feitosa");
 		
@@ -57,9 +57,6 @@ public class Regras {
 	
 	@Test
 	public void validacaoComida() {
-		WebDriver driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Janaina");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Feitosa");
 		driver.findElement(By.id("elementosForm:sexo:1")).click();
@@ -78,9 +75,6 @@ public class Regras {
 	
 	@Test
 	public void validacaoEsporte(){
-		WebDriver driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Janaina");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Feitosa");
 		driver.findElement(By.id("elementosForm:sexo:1")).click();
