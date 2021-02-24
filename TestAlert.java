@@ -3,18 +3,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestAlert {
 	
 	private WebDriver driver;
+	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
 		driver = new ChromeDriver();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 	
 	@After
@@ -24,24 +25,24 @@ public class TestAlert {
 	
 	@Test
 	public void clickButtonAlert() {
-		driver.findElement(By.id("alert")).click();
+		dsl.clicarBotao("alert");
 		Alert alert = driver.switchTo().alert();
 		String texto = alert.getText();
 		Assert.assertEquals("Alert Simples", texto);
 		alert.accept();
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
+		dsl.escreve("elementosForm:nome", texto);
 	}
 	
 	@Test
 	public void clickButtonAlertConfirm() {
-		driver.findElement(By.id("confirm")).click();
+		dsl.clicarBotao("confirm");
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Confirm Simples", alert.getText());
 		alert.accept();
 		Assert.assertEquals("Confirmado", alert.getText());
 		alert.accept();
 		
-		driver.findElement(By.id("confirm")).click();
+		dsl.clicarBotao("confirm");
 		alert = driver.switchTo().alert();
 		Assert.assertEquals("Confirm Simples", alert.getText());
 		alert.dismiss();
@@ -51,7 +52,7 @@ public class TestAlert {
 	
 	@Test
 	public void clickButtonAlertPropt() {
-		driver.findElement(By.id("prompt")).click();
+		dsl.clicarBotao("prompt");
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals("Digite um numero", alert.getText());
 		alert.sendKeys("8");
