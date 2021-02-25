@@ -18,9 +18,17 @@ public class CampoTreinamentoPage {
 	public void setSexoFeminino() {
 		dsl.clicarRadio("elementosForm:sexo:1");
 	}
+	
+	public void setSexoMasculino() {
+		dsl.clicarRadio("elementosForm:sexo:0");
+	}
 
 	public void setComidaFrango() {
 		dsl.clicarRadio("elementosForm:comidaFavorita:1");
+	}
+	
+	public void setComidaCarne() {
+		dsl.clicarRadio("elementosForm:comidaFavorita:0");
 	}
 	
 	public void setComidaVegetariana() {
