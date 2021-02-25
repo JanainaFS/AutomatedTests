@@ -1,15 +1,37 @@
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+@RunWith(Parameterized.class)
 public class TestRegras {
 	
 	private WebDriver driver;
 	private CampoTreinamentoPage page;
+	
+	@Parameter
+	public String nome;
+	@Parameter(value=1)
+	public String sobrenome;
+	@Parameter(value=2)
+	public String sexo;
+	@Parameter(value=3)
+	public List<String> comidas;
+	@Parameter(value=4)
+	public String[] esportes;
+	@Parameter(value=5)
+	public String msg;
 	
 	@Before
 	public void inicializa() {
@@ -23,66 +45,37 @@ public class TestRegras {
 		driver.quit();
 	}
 	
-	@Test
-	public void validacaoNome() {
-		page.cadastrar();
-		
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Nome eh obrigatorio", alert.getText());
-		alert.accept();
+	@Parameters
+	public static Collection<Object[]> getCollection(){
+		return Arrays.asList(new Object[][]{
+			{"", "", "", Arrays.asList(), new String[]{}, "Nome eh obrigatorio"},
+			{"Janaina", "", "", Arrays.asList(), new String[]{}, "Sobrenome eh obrigatorio"},
+			{"Janaina", "Feitosa", "", Arrays.asList(), new String[]{}, "Sexo eh obrigatorio"},
+			{"Janaina", "Feitosa", "Feminino", Arrays.asList("Frango", "Vegetariano"), new String[]{}, "Tem certeza que voce eh vegetariano?"},
+			{"Janaina", "Feitosa", "Feminino", Arrays.asList("Frango"), new String[]{"Natacao", "O que eh esporte?"}, "Voce faz esporte ou nao?"}
+		});
 	}
 	
 	@Test
-	public void validacaoSobrenome() {
-		page.setNome("Janaina");
+	public void deveValidarRegras() {
+		page.setNome(nome);
+		page.setSobrenome(sobrenome);
+		
+		if(sexo.equals("Feminino")) page.setSexoFeminino();
+		if(sexo.equals("Masculino"))	page.setSexoMasculino();
+		
+		if(comidas.contains("Frango")) page.setComidaFrango();
+		if(comidas.contains("Carne")) page.setComidaCarne();
+		if(comidas.contains("Vegetariano")) page.setComidaVegetariana();
+		
+		page.setEsporte(esportes);
 		
 		page.cadastrar();
+		System.out.println(msg);
 		
 		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
+		Assert.assertEquals(msg , alert.getText());
 		alert.accept();
 	}
 	
-	@Test
-	public void validacaoSexo() {
-		page.setNome("Janaina");
-		page.setSobrenome("Feitosa"); 
-		
-		page.cadastrar();
-
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
-		alert.accept();
-	}
-	
-	@Test
-	public void validacaoComida() {
-		page.setNome("Janaina");
-		page.setSobrenome("Feitosa"); 
-		page.setSexoFeminino();
-		page.setComidaFrango();
-		page.setComidaVegetariana();
-		
-		page.cadastrar();
-		
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
-		alert.accept();
-	}
-	
-	@Test
-	public void validacaoEsporte(){
-		page.setNome("Janaina");
-		page.setSobrenome("Feitosa"); 
-		page.setSexoFeminino();
-		page.setComidaFrango();
-		page.setEsporte("Natacao", "O que eh esporte?");
-		
-		page.cadastrar();
-		
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
-		alert.accept();
-	}
-
 }
