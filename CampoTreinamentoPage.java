@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class CampoTreinamentoPage {
@@ -50,5 +51,33 @@ public class CampoTreinamentoPage {
 	
 	public void cadastrar() {
 		dsl.clicarBotao("elementosForm:cadastrar");
+	}
+	
+	public String obterResultadoCadastro(){
+		return dsl.obterTexto(By.xpath("//*[@id='resultado']/span"));
+	}
+	
+	public String obterNomeCadastro(){
+		return dsl.obterTexto(By.xpath("//*[@id='descNome']/span"));
+	}
+	
+	public String obterSobrenomeCadastro(){
+		return dsl.obterTexto(By.xpath("//*[@id='descSobrenome']/span"));
+	}
+	
+	public String obterSexoCadastro(){
+		return dsl.obterTexto(By.xpath("//*[@id='descSexo']/span"));
+	}
+	
+	public String obterComidaCadastro(){
+		return dsl.obterTexto(By.xpath("//*[@id='descComida']/span"));
+	}
+	
+	public String obterEscolaridadeCadastro(){
+		return dsl.obterTexto(By.xpath("//*[@id='descEscolaridade']/span"));
+	}
+	
+	public String obterEsportesCadastro(){
+		return dsl.obterTexto(By.xpath("//*[@id='descEsportes']/span"));
 	}
 }
