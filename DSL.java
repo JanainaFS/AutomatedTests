@@ -26,8 +26,12 @@ public class DSL {
 		return driver.findElement(By.id(id)).getAttribute("value");
 	}
 	
+	public void clicarRadio(By by) {
+		driver.findElement(by).click();
+	}
+	
 	public void clicarRadio(String id) {
-		driver.findElement(By.id(id)).click();
+		clicarRadio(By.id(id));
 	}
 	
 	public boolean verificarRadioSelecionado(String id) {
@@ -44,6 +48,11 @@ public class DSL {
 		WebElement element = driver.findElement(By.id(id));
 		Select combo = new Select(element);
 		return combo.getFirstSelectedOption().getText();
+	}
+	
+	public void selecionarComboPrime(String radical, String valor) {
+		clicarRadio(By.xpath("//*[@id='"+radical+"_input']/../..//span"));
+		clicarRadio(By.xpath("//*[@id='"+radical+"_items']//li[.='"+valor+"']"));
 	}
 	
 	public void clicarBotao(String id) {
