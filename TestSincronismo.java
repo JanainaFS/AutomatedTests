@@ -40,6 +40,7 @@ public class TestSincronismo {
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 	}
 	
+	@Test
 	public void utilizarEsperaExplicita() throws InterruptedException {
 		dsl.clicarBotao("buttonDelay");
 		WebDriverWait wait = new WebDriverWait(driver, 30);
