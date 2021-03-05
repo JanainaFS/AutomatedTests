@@ -1,12 +1,10 @@
 package br.janaina.test;
 import static br.janaina.core.DriverFactory.getDriver;
-import static br.janaina.core.DriverFactory.killDriver;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +14,11 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.Alert;
 
+import br.janaina.core.BaseTest;
 import br.janaina.page.CampoTreinamentoPage;
 
 @RunWith(Parameterized.class)
-public class TestRegras {
+public class TestRegras extends BaseTest{
 	private CampoTreinamentoPage page;
 	
 	@Parameter
@@ -40,12 +39,7 @@ public class TestRegras {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		page = new CampoTreinamentoPage();
 	}
-	
-	@After
-	public void finaliza() {
-		killDriver();
-	}
-	
+		
 	@Parameters
 	public static Collection<Object[]> getCollection(){
 		return Arrays.asList(new Object[][]{

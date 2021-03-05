@@ -1,27 +1,20 @@
 package br.janaina.test;
 import static br.janaina.core.DriverFactory.getDriver;
-import static br.janaina.core.DriverFactory.killDriver;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.janaina.core.BaseTest;
 import br.janaina.page.CampoTreinamentoPage;
 
-public class TestFormCadastro {
+public class TestFormCadastro extends BaseTest {
 	private CampoTreinamentoPage page;
 	
 	@Before
 	public void inicializa() {
-		
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		page = new CampoTreinamentoPage();
-	}
-	
-	@After
-	public void finaliza() {
-		killDriver();
 	}
 	
 	@Test
