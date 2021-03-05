@@ -1,15 +1,10 @@
 package br.janaina.page;
 import org.openqa.selenium.By;
 
-import br.janaina.core.DSL;
+import br.janaina.core.BasePage;
 
-public class CampoTreinamentoPage {
-	private DSL dsl;
-	
-	public CampoTreinamentoPage() {
-		dsl = new DSL();
-	}
-	
+public class CampoTreinamentoPage extends BasePage{
+		
 	public void setNome(String nome) {
 		dsl.escreve("elementosForm:nome", nome);
 	}
