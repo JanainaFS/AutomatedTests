@@ -1,33 +1,29 @@
+package br.janaina.core;
+
+import static br.janaina.core.DriverFactory.getDriver;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class DSL {
-	private WebDriver driver;
-	
-	public DSL(WebDriver driver) {
-		super();
-		this.driver = driver;
-	}
-
 	public void escreve(By by, String texto) {
-		driver.findElement(by).clear();
-		driver.findElement(by).sendKeys(texto);
+		getDriver().findElement(by).clear();
+		getDriver().findElement(by).sendKeys(texto);
 	}
 	public void escreve(String id, String texto) {
 		escreve(By.id(id), texto);
 	}
 	
 	public String obterValorCampo(String id) {
-		return driver.findElement(By.id(id)).getAttribute("value");
+		return getDriver().findElement(By.id(id)).getAttribute("value");
 	}
 	
 	public void clicarRadio(By by) {
-		driver.findElement(by).click();
+		getDriver().findElement(by).click();
 	}
 	
 	public void clicarRadio(String id) {
@@ -35,17 +31,17 @@ public class DSL {
 	}
 	
 	public boolean verificarRadioSelecionado(String id) {
-		return driver.findElement(By.id(id)).isSelected();
+		return getDriver().findElement(By.id(id)).isSelected();
 	}
 	
 	public void selecionarCombo(String id, String valor) {
-		WebElement element = driver.findElement(By.id(id));
+		WebElement element = getDriver().findElement(By.id(id));
 		Select combo = new Select(element);
 		combo.selectByVisibleText(valor);
 	}
 	
 	public String obterValorCombo(String id) {
-		WebElement element = driver.findElement(By.id(id));
+		WebElement element = getDriver().findElement(By.id(id));
 		Select combo = new Select(element);
 		return combo.getFirstSelectedOption().getText();
 	}
@@ -56,15 +52,15 @@ public class DSL {
 	}
 	
 	public void clicarBotao(String id) {
-		driver.findElement(By.id(id)).click();
+		getDriver().findElement(By.id(id)).click();
 	}
 	
 	public void clicarLink(String link) {
-		driver.findElement(By.linkText(link)).click();
+		getDriver().findElement(By.linkText(link)).click();
 	}
 	
 	public String obterTexto(By by) {
-		return driver.findElement(by).getText();
+		return getDriver().findElement(by).getText();
 	}
 	
 	public String obterTexto(String id) {
@@ -74,7 +70,7 @@ public class DSL {
 	/**** Java Script ****/
 	
 	public Object executarJS(String cmd, Object... param) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		return js.executeScript("cmd", param);
 	}
 	
@@ -82,7 +78,7 @@ public class DSL {
 	
 	public void clicarBotaoTabela(String colunaBusca, String valor, String colunaBotao, String idTabela) {
 		//procurar coluna de registro
-		WebElement tabela = driver.findElement(By.xpath("//*[@id='elementosForm:tableUsuarios']"));
+		WebElement tabela = getDriver().findElement(By.xpath("//*[@id='elementosForm:tableUsuarios']"));
 		int idColuna = obterIndiceColuna(colunaBusca, tabela);
 		
 		//procurar a linha do registro

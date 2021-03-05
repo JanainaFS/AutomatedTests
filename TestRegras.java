@@ -1,3 +1,6 @@
+import static br.janaina.core.DriverFactory.getDriver;
+import static br.janaina.core.DriverFactory.killDriver;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -11,13 +14,9 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Parameterized.class)
 public class TestRegras {
-	
-	private WebDriver driver;
 	private CampoTreinamentoPage page;
 	
 	@Parameter
@@ -35,14 +34,13 @@ public class TestRegras {
 	
 	@Before
 	public void inicializa() {
-		driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		page = new CampoTreinamentoPage(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		page = new CampoTreinamentoPage();
 	}
 	
 	@After
 	public void finaliza() {
-		driver.quit();
+		killDriver();
 	}
 	
 	@Parameters
@@ -73,7 +71,7 @@ public class TestRegras {
 		page.cadastrar();
 		System.out.println(msg);
 		
-		Alert alert = driver.switchTo().alert();
+		Alert alert = getDriver().switchTo().alert();
 		Assert.assertEquals(msg , alert.getText());
 		alert.accept();
 	}

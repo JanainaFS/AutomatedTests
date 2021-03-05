@@ -1,3 +1,6 @@
+import static br.janaina.core.DriverFactory.getDriver;
+import static br.janaina.core.DriverFactory.killDriver;
+
 import java.util.List;
 
 import org.junit.After;
@@ -6,25 +9,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import br.janaina.core.DSL;
+
 public class TestCampoTreinamento {
-	private WebDriver driver;
 	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
-		driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
 	}
 	
 	@After
 	public void finaliza() {
-//		driver.quit();
+		killDriver();
 	}
 	
 	@Test
@@ -55,8 +56,8 @@ public class TestCampoTreinamento {
 	
 	@Test
 	public void verificarMarcacaoCheckboxButton() {
-		driver.findElement(By.id("elementosForm:comidaFavorita:1")).click();
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:1")).isSelected());
+		getDriver().findElement(By.id("elementosForm:comidaFavorita:1")).click();
+		Assert.assertTrue(getDriver().findElement(By.id("elementosForm:comidaFavorita:1")).isSelected());
 	}
 	
 	@Test
@@ -67,7 +68,7 @@ public class TestCampoTreinamento {
 	
 	@Test
 	public void selecionarComboOne() {
-		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:escolaridade"));
 		Select combo = new Select(element);
 		List<WebElement> options =  combo.getOptions();
 		Assert.assertEquals(8, options.size());
@@ -89,7 +90,7 @@ public class TestCampoTreinamento {
 		dsl.selecionarCombo("elementosForm:esportes", "Natacao");
 		dsl.selecionarCombo("elementosForm:esportes", "Futebol");
 		
-		WebElement element = driver.findElement(By.id("elementosForm:esportes"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:esportes"));
 		Select combo = new Select(element);		
 		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
 		Assert.assertEquals(2, allSelectedOptions.size());
@@ -102,7 +103,7 @@ public class TestCampoTreinamento {
 	public void clickBotao() {
 		dsl.clicarBotao("buttonSimple");
 		
-		WebElement botao = driver.findElement(By.id("buttonSimple"));
+		WebElement botao = getDriver().findElement(By.id("buttonSimple"));
 		Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
 	}
 	
@@ -121,10 +122,10 @@ public class TestCampoTreinamento {
 	//Código JavaScript no Selenium
 	@Test
 	public void testJavaScript() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 //		js.executeScript("document.getElementById('elementosForm:nome').value = 'Escrito via js'");
 		js.executeScript("document.getElementById('elementosForm:sobrenome').type = 'radio'");
-		WebElement element = driver.findElement(By.id("elementosForm:nome"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:nome"));
 		js.executeScript("arguments[0].style.border = arguments[1]", element, "solid 4px red");
 	}
 	

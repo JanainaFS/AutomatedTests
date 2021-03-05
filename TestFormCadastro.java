@@ -1,24 +1,24 @@
+import static br.janaina.core.DriverFactory.getDriver;
+import static br.janaina.core.DriverFactory.killDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestFormCadastro {
-	private WebDriver driver;
 	private CampoTreinamentoPage page;
 	
 	@Before
 	public void inicializa() {
-		driver = new ChromeDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		page = new CampoTreinamentoPage(driver);
+		
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		page = new CampoTreinamentoPage();
 	}
 	
 	@After
 	public void finaliza() {
-		driver.quit();
+		killDriver();
 	}
 	
 	@Test
