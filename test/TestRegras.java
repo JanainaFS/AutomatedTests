@@ -1,3 +1,4 @@
+package br.janaina.test;
 import static br.janaina.core.DriverFactory.getDriver;
 import static br.janaina.core.DriverFactory.killDriver;
 
@@ -14,6 +15,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.Alert;
+
+import br.janaina.page.CampoTreinamentoPage;
 
 @RunWith(Parameterized.class)
 public class TestRegras {

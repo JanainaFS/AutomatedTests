@@ -1,3 +1,4 @@
+package br.janaina.test;
 import static br.janaina.core.DriverFactory.getDriver;
 import static br.janaina.core.DriverFactory.killDriver;
 

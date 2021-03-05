@@ -1,3 +1,4 @@
+package br.janaina.page;
 import org.openqa.selenium.By;
 
 import br.janaina.core.DSL;

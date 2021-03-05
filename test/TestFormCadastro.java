@@ -1,3 +1,4 @@
+package br.janaina.test;
 import static br.janaina.core.DriverFactory.getDriver;
 import static br.janaina.core.DriverFactory.killDriver;
 
@@ -5,6 +6,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import br.janaina.page.CampoTreinamentoPage;
 
 public class TestFormCadastro {
 	private CampoTreinamentoPage page;
